@@ -3,20 +3,17 @@ import java.util.Scanner;
 
 public class ContactList {
     ArrayList<Person> contacts;
+    // Constructor
     public ContactList() {
         contacts = new ArrayList<Person>();
     }
 
+    // Getter for the contactList
     public ArrayList<Person> getContacts() {
         return contacts;
     }
 
-//    public void setupTest() {
-//        contacts.add(new Student("Sohum", "Berry", "6508019333", 10));
-//        contacts.add(new Student("Amay", "Abram", "1508019333", 6));
-//        contacts.add(new Student("a", "a", "1", 1));
-//    }
-
+    // Request data about a contact from the user depending on which type they choose, then add it to the contactList
     public void createContact(int personType) {
         Scanner s = new Scanner(System.in);
         System.out.println("Please fill in the following information.");
@@ -44,11 +41,9 @@ public class ContactList {
             String sport = s.nextLine();
             contacts.add(new Athlete(firstName, lastName, number, sport));
         }
-        else {
-            contacts.add(new Person("Error", "Error", "Error"));
-        }
     }
 
+    // Bubble sort depending on which piece of data were sorting on
     public void sort(int sortBy) {
         for (int i = 0; i < contacts.size(); i++) {
             for (int j = 0; j < contacts.size()- i - 1; j++) {
@@ -70,19 +65,20 @@ public class ContactList {
                 int result = item1.compareTo(item2);
                 if (result > 0) {
                     // num2 is first
-                    System.out.println("swapping");
                     swap(j);
                 }
-                // Otherwise they're equal numbers or they're in the right order and all good
+                // Otherwise they're equal numbers, or they're in the right order and all good
             }
         }
     }
-    private void swap(int loc) {
-        Person p = contacts.get(loc);
-        contacts.set(loc, contacts.get(loc + 1));
-        contacts.set(loc + 1, p);
+    // Private method to swap two consecutive positions in the arrayList
+    private void swap(int location) {
+        Person p = contacts.get(location);
+        contacts.set(location, contacts.get(location + 1));
+        contacts.set(location + 1, p);
     }
 
+    // Prints out people, and will only print students if the boolean argument is true by using insanceof
     public void printPeople(boolean onlyStudents) {
         for (Person person : contacts) {
             if (onlyStudents) {
@@ -96,6 +92,8 @@ public class ContactList {
         }
     }
 
+    // Program to search the contacts for the first instance of the inputted name, returning a Person object and null
+    // if no matches
     public Person searchByFirstName(String firstName) {
         for (Person p : contacts) {
             if (p.getFirstName().equals(firstName)) {
@@ -104,6 +102,8 @@ public class ContactList {
         }
         return null;
     }
+    // Program to search the contacts for the first instance of the inputted last name, returning a Person object and null
+    // if no matches
     public Person searchByLastName(String lastName) {
         for (Person p : contacts) {
             if (p.getLastName().equals(lastName)) {
@@ -112,6 +112,8 @@ public class ContactList {
         }
         return null;
     }
+    // Program to search the contacts for the first instance of the inputted phone number, returning a Person object and null
+    // if no matches
     public Person searchByPhoneNumber(String phoneNumber) {
         for (Person p : contacts) {
             if (p.getPhoneNumber().equals(phoneNumber)) {
@@ -121,6 +123,7 @@ public class ContactList {
         return null;
     }
 
+    // Prints the options a user could pick after a separator
     public void printMenu() {
         System.out.println("---------------------------------------");
         System.out.println("Menu:");
@@ -136,6 +139,7 @@ public class ContactList {
         System.out.println("Select an option:");
     }
 
+    // Method to ask for user input until killed with '0'
     public void run() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -161,6 +165,7 @@ public class ContactList {
             } else if (choice == 2) {
                 // 2. List All Contacts By First Name
                 sort(0);
+                // Print everyone
                 printPeople(false);
             } else if (choice == 3) {
                 // 3. List All Contacts By Last Name
@@ -178,10 +183,12 @@ public class ContactList {
                 System.out.println("Enter a name:");
                 String name = scanner.nextLine();
                 Person person = searchByFirstName(name);
+                // If there is a match, print the Person
                 if (person != null) {
                     System.out.println(person);
                 }
                 else {
+                    // Otherwise alert the user
                     System.out.println(name + " is not in your contacts");
                 }
             } else if (choice == 7) {
@@ -212,7 +219,6 @@ public class ContactList {
 
     public static void main(String[] args) {
         ContactList contact = new ContactList();
-//        test.setupTest();
         contact.run();
     }
 }

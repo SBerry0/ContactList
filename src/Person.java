@@ -3,12 +3,14 @@ public class Person {
     private String lastName;
     private String phoneNumber;
 
+    // Constructor for regular Person
     public Person(String firstName, String lastName, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
     }
 
+    // Getters
     public String getFirstName() {
         return firstName;
     }
@@ -21,6 +23,7 @@ public class Person {
         return phoneNumber;
     }
 
+    // toString to print a person
     public String toString() {
         return firstName + " " + lastName + " - #" + phoneNumber;
     }
